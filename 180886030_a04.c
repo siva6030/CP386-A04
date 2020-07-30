@@ -59,12 +59,28 @@ int main(int argc, char *argv[])
 //      startClock();
         char cmd[12];
         char zero[2] = "0";
+        char c[3];
 
         printf("Enter Command (Press 0 to exit): ");
         scanf(" %s", cmd);
 
         while(strcmp(cmd,zero) != 0){
-
+                strncpy(c,cmd,3);
+                if(strcmp(c,"RQ") == 0){
+                        rq(cmd);
+                }
+                else if(strcmp(c,"RL") == 0){
+                        rl(cmd);
+                }
+                else if(strcmp(c,"*") == 0){
+                        Ast();
+                }
+                else if(strcmp(c,"Run") == 0){
+                        Run();
+                }
+                else{
+                        printf("Invalid entry\n");
+                }
 
 
                 printf("Enter Command (Press 0 to exit): ");
