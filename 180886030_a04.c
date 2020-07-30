@@ -57,6 +57,19 @@ int main(int argc, char *argv[])
                 x++;
         }
 //      startClock();
+        char cmd[12];
+        char zero[2] = "0";
+
+        printf("Enter Command (Press 0 to exit): ");
+        scanf(" %s", cmd);
+
+        while(strcmp(cmd,zero) != 0){
+
+
+
+                printf("Enter Command (Press 0 to exit): ");
+                scanf(" %s", cmd);
+        }
 
         return 0;
 }
