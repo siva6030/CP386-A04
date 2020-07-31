@@ -31,7 +31,7 @@ int r[5][4];//max resources
 int ar[5][4];// allocated
 int nr[5][4];//needed
 int numOfR[4];
-
+int exit = 0;
 int main(int argc, char *argv[])
 {
         if(argc<2)
@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
         printf("Enter Command (Press 0 to exit): ");
         scanf(" %s", cmd);
 
-        while(strcmp(cmd,zero) != 0){
+        while(strcmp(cmd,zero) != 0 && exit ==0){
                 strncpy(c,cmd,3);
                 if(strcmp(c,"RQ") == 0){
                         rq(cmd);
@@ -77,6 +77,7 @@ int main(int argc, char *argv[])
                 }
                 else if(strcmp(c,"Run") == 0){
                         Run();
+                        exit = 1;
                 }
                 else{
                         printf("Invalid entry\n");
