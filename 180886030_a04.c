@@ -221,7 +221,37 @@ void rq(char* c){
 }
 
 void rl(char* c){
+        char  res[6][3];
+        char * token = strtok(c, " ");
+        int i = 0;
+        // loop through the string to extract all other tokens
+        while( token != NULL ) {
+                //printf( " %s\n", token ); //printing each token
+                strcpy(res[i],token);
+                token = strtok(NULL, " ");
+                i++;
+        }
+        int cus  = atoi(res[1]);
+        int x = 2;
+        int re[4];
+        //printf("%d\n",cus);
+        while(x<6){
+                re[x-2] = atoi(res[x]);
+//              printf("%d\n",re[x]);
+                x++;
+        }
 
+        for(int i = 0;i<4;i++){
+                numOfR[i] = numOfR[i] + re[i];
+        }
+
+        for(int i = 0;i<4;i++){
+                ar[cus][i] = ar[cus][i] - re[i];
+        }
+        for(int i = 0;i<4;i++){
+               nr[cus][i] = nr[cus][i] + re[i];
+        }
+        printf("successful 0\n");
 }
 
 void Ast(){
