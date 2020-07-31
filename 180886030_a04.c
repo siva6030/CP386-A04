@@ -214,7 +214,31 @@ void rl(char* c){
 }
 
 void Ast(){
+        printf("Currently Available resources: %d %d %d %d\n",numOfR[0],numOfR[1],numOfR[2],numOfR[3]);
 
+        printf("Maximum resources: \n");
+        for(int i = 0; i<5; i++){
+                for(int j = 0;j<4;j++){
+                        printf("%d ",r[i][j] );
+                }
+                printf("\n");
+        }
+
+        printf("Allocated resources: \n");
+        for(int i = 0; i<5; i++){
+                for(int j = 0;j<4;j++){
+                        printf("%d ",ar[i][j] );
+                }
+                printf("\n");
+        }
+
+        printf("Needed resources: \n");
+        for(int i = 0; i<5; i++){
+                for(int j = 0;j<4;j++){
+                        printf("%d ",nr[i][j] );
+                }
+                printf("\n");
+        }
 }
 
 int safety(){
