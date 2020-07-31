@@ -218,6 +218,16 @@ void Ast(){
 }
 
 int safety(){
-
+        int s = 0;
+        if(re[0] < numOfR[0]){
+                if(re[1] < numOfR[1]){
+                        if(re[2] < numOfR[2]){
+                                if(re[3] < numOfR[3]){
+                                        s  = 1;
+                                }
+                        }
+                }
+        }
+        return s;
 }
 
