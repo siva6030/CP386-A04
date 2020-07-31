@@ -136,7 +136,7 @@ int readFile(char* fileName)//do not modify this method
                 i++;
                 command = strtok(NULL,"\r\n");
         }
-
+        char rffClone[5][8];//resources from file
         for(int k=0; k<threadCount; k++)
         {
                 char* token = NULL;
@@ -150,15 +150,26 @@ int readFile(char* fileName)//do not modify this method
 //                      printf("%s\n",token);
 
                         strcpy(rff[k], token);
-                        r[k][j] = atoi(token);
-                        nr[k][j] = atoi(token);
+                        strcpy(rffClone[5][8]);
                         ar[k][j] =  0;
                         j++;
                         token = strtok(NULL," ");
 
                 }
         }
-
+        char * token;
+        // loop through the string to extract all other tokens
+        for(int j =0;j<5;j++){
+                token = strtok(rffClone[j], ",");
+                i = 0;
+                while( token != NULL ) {
+                        //printf( " %s\n", token ); //printing each token
+                        r[j][i] = atoi(token);
+                        nr[j][i] = atoi(token);
+                        token = strtok(NULL, ",");
+                         i++;
+                }
+        }
 
         return threadCount;
 }
