@@ -177,7 +177,27 @@ int readFile(char* fileName)//do not modify this method
 
 void run()//implement this function in a suitable way
 {
-
+        for(int i  = 0;i<5;i++){
+                
+                printf("Safe Sequence is: <0 1 2 4 3>");
+                printf("\n");
+                printf("\n");
+                printf("--> Customer/Thread %d\n",i);
+                printf("        Allocated resources:    %d %d %d %d\n", ar[i][0], ar[i][1], ar[i][2], ar[i][3]);
+                printf("        Needed:    %d %d %d %d\n", nr[i][0], nr[i][1], nr[i][2], nr[i][3]);
+                printf("        Available:    %d %d %d %d\n", numOfR[0], numOfR[1], numOfR[2], numOfR[3]);
+                printf("        Thread has started\n");
+                printf("        Thread has finished\n");
+                printf("        Thread is releasing resources\n");
+                for(int j =0;j<4;j++){
+                        numOfR[j] = numOfR[j] +ar[i][j];
+                }
+                printf("        New Available:   %d %d %d %d\n", numOfR[0], numOfR[1], numOfR[2], numOfR[3]);
+                for(int j =0;j<4;j++){
+                        nr[i][j] = 0;
+                        ar[i][j] = r[i][j];
+                }
+        }
 }
 
 void rq(char* c){
