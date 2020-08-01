@@ -7,12 +7,11 @@ Motivation
 
 
 Installation
+	Copy code and put it in a nano file.
 
-Copy code and put it in a nano file.
+	Copy and paste sample4_in.txt into nano file
 
-Copy and paste sample4_in.txt into nano file
-
-Then invoke the code with the number of resourses you want
+	Then invoke the code with the number of resourses you want
 
 
 
@@ -21,8 +20,7 @@ Screenshots
 
 
 Individual contribution
-
-Worked on assignment alone 
+	Worked on assignment alone 
 
 
 
@@ -33,7 +31,7 @@ Tests
 Code Example
 
 Author
-Anusaanth Sivakumaran 
+	Anusaanth Sivakumaran 
 
 Credits
 
