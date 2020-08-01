@@ -15,11 +15,16 @@ Copy and paste sample4_in.txt into nano file
 Then invoke the code with the number of resourses you want
 
 
+
 Screenshots
+
+
 
 Individual contribution
 
 Worked on assignment alone 
+
+
 
 Features 
 
