@@ -31,7 +31,8 @@ int r[5][4];//max resources
 int ar[5][4];// allocated
 int nr[5][4];//needed
 int numOfR[4];
-int exit = 0;
+int ex = 0;
+
 int main(int argc, char *argv[])
 {
         if(argc<2)
@@ -39,6 +40,16 @@ int main(int argc, char *argv[])
                 printf("Input file name missing...exiting with error code -1\n");
                 return -1;
         }
+        char *p;
+        long conv = strtol(argv[1], &p, 10);
+
+        numOfR[0] = conv;
+        conv = strtol(argv[2], &p, 10);
+        numOfR[1] = conv;
+        conv = strtol(argv[3], &p, 10);
+        numOfR[2] = conv;
+        conv = strtol(argv[4], &p, 10);
+        numOfR[3] = conv;
 
     //you can add some suitable code anywhere in main() if required
 
@@ -49,7 +60,7 @@ int main(int argc, char *argv[])
         printf("Number of Customes: ");
         scanf(" %d", &numCus);
 //      printf("\n");
-        printf("Currently Available resources: \n");
+        printf("Currently Available resources: %d %d %d %d\n",numOfR[0],numOfR[1],numOfR[2],numOfR[3]);
         printf("Maximum resources from file: \n");
         int x = 0;
         while(x<5){
@@ -57,19 +68,22 @@ int main(int argc, char *argv[])
                 x++;
         }
 //      startClock();
-        char cmd[12];
+
+        char cmd[16];
         char zero[2] = "0";
         char c[3];
 
         printf("Enter Command (Press 0 to exit): ");
-        scanf(" %s", cmd);
+        scanf(" %[^\n]", cmd);
 
-        while(strcmp(cmd,zero) != 0 && exit ==0){
+        while(strcmp(cmd,zero) != 0 && ex == 0){
                 strncpy(c,cmd,3);
-                if(strcmp(c,"RQ") == 0){
+//              printf("%s\n",c);
+
+                if(strcmp(c,"RQ ") == 0){
                         rq(cmd);
                 }
-                else if(strcmp(c,"RL") == 0){
+                else if(strcmp(c,"RL ") == 0){
                         rl(cmd);
                 }
                 else if(strcmp(c,"*") == 0){
@@ -77,15 +91,15 @@ int main(int argc, char *argv[])
                 }
                 else if(strcmp(c,"Run") == 0){
                         Run();
-                        exit = 1;
                 }
                 else{
                         printf("Invalid entry\n");
                 }
 
-
-                printf("Enter Command (Press 0 to exit): ");
-                scanf(" %s", cmd);
+                if(ex == 0){
+                        printf("Enter Command (Press 0 to exit): ");
+                        scanf(" %[^\n]", cmd);
+                }
         }
 
         return 0;
@@ -116,7 +130,7 @@ int readFile(char* fileName)//do not modify this method
 
         char* command = NULL;
         int threadCount = 0;
-                char* fileCopy = (char*)malloc((strlen(fileContent)+1)*sizeof(char));
+        char* fileCopy = (char*)malloc((strlen(fileContent)+1)*sizeof(char));
         strcpy(fileCopy,fileContent);
         command = strtok(fileCopy,"\r\n");
         while(command!=NULL)
@@ -132,11 +146,12 @@ int readFile(char* fileName)//do not modify this method
         command = strtok(fileContent,"\r\n");
         while(command!=NULL)
         {
-                lines[i] = malloc(sizeof(command)*sizeof(char));
+               lines[i] = malloc(sizeof(command)*sizeof(char));
                 strcpy(lines[i],command);
                 i++;
                 command = strtok(NULL,"\r\n");
         }
+
         char rffClone[5][8];//resources from file
         for(int k=0; k<threadCount; k++)
         {
@@ -146,18 +161,19 @@ int readFile(char* fileName)//do not modify this method
                 while(token!=NULL)
                 {
 //if you have extended the Thread struct then here
-      //you can do initialization of those additional members
+//you can do initialization of those additional members
 //or any other action on the Thread members
 //                      printf("%s\n",token);
 
                         strcpy(rff[k], token);
-                        strcpy(rffClone[5][8]);
+                        strcpy(rffClone[k], token);
                         ar[k][j] =  0;
                         j++;
                         token = strtok(NULL," ");
 
                 }
         }
+
         char * token;
         // loop through the string to extract all other tokens
         for(int j =0;j<5;j++){
@@ -172,17 +188,24 @@ int readFile(char* fileName)//do not modify this method
                 }
         }
 
+
         return threadCount;
 }
 
 
-void run()//implement this function in a suitable way
+void Run()//implement this function in a suitable way
 {
+
+        int safe = safety();
+
+
+        if(safe == 1){
+                printf("Safe Sequence is: <0 1 2 3 4>");
         for(int i  = 0;i<5;i++){
-                
-                printf("Safe Sequence is: <0 1 2 4 3>");
+
                 printf("\n");
                 printf("\n");
+                printf("--> Customer/Thread %d\n",i);
                 printf("--> Customer/Thread %d\n",i);
                 printf("        Allocated resources:    %d %d %d %d\n", ar[i][0], ar[i][1], ar[i][2], ar[i][3]);
                 printf("        Needed:    %d %d %d %d\n", nr[i][0], nr[i][1], nr[i][2], nr[i][3]);
@@ -198,6 +221,11 @@ void run()//implement this function in a suitable way
                         nr[i][j] = 0;
                         ar[i][j] = r[i][j];
                 }
+                ex = 1;
+        }
+        }
+        else{
+                printf("Not safe\n");
         }
 }
 
@@ -221,7 +249,18 @@ void rq(char* c){
 //              printf("%d\n",re[x]);
                 x++;
         }
-        int s  = safety(re);
+
+        int s = 0;
+        if(re[0] < numOfR[0]){
+                if(re[1] < numOfR[1]){
+                        if(re[2] < numOfR[2]){
+                                if(re[3] < numOfR[3]){
+                                        s  = 1;
+                                }
+                        }
+                }
+        }
+
         if(s==1){
                 for(int i = 0;i<4;i++){
                         numOfR[i] = numOfR[i] - re[i];
@@ -239,6 +278,7 @@ void rq(char* c){
         else{
                 printf("unsuccessful -1\n");
         }
+
 }
 
 void rl(char* c){
@@ -262,6 +302,18 @@ void rl(char* c){
                 x++;
         }
 
+        int s = 0;
+        if(re[0] <= ar[cus][0]){
+                if(re[1] <= ar[cus][1]){
+                        if(re[2] <= ar[cus][2]){
+                                if(re[3] <= ar[cus][3]){
+                                        s  = 1;
+                                }
+                        }
+                }
+        }
+        
+        if(s==1){
         for(int i = 0;i<4;i++){
                 numOfR[i] = numOfR[i] + re[i];
         }
@@ -269,10 +321,15 @@ void rl(char* c){
         for(int i = 0;i<4;i++){
                 ar[cus][i] = ar[cus][i] - re[i];
         }
+
         for(int i = 0;i<4;i++){
                nr[cus][i] = nr[cus][i] + re[i];
         }
         printf("successful 0\n");
+        }
+        else{
+                printf("unsuccessful -1\n");
+        }
 }
 
 void Ast(){
@@ -304,16 +361,25 @@ void Ast(){
 }
 
 int safety(){
-        int s = 0;
-        if(re[0] < numOfR[0]){
-                if(re[1] < numOfR[1]){
-                        if(re[2] < numOfR[2]){
-                                if(re[3] < numOfR[3]){
-                                        s  = 1;
-                                }
+
+        int i = 0;
+        int j = 0;
+        int safe = 1;
+        int num;
+        while(i < 5  && safe ==1){
+                while(j < 4  && safe ==1){
+                        num = 0;
+                        for(int a = i-1; a >0; a--){
+                                num = num +ar[i-a][j];
                         }
+                        if(nr[i][j] > (numOfR[j]+num)){
+                                safe = 0;
+                        }
+                        j++;
                 }
+                i++;
         }
-        return s;
+
+        return safe;
 }
 
