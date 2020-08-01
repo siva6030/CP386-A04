@@ -20,11 +20,6 @@ Installation
 	Then invoke the code with the number of resourses you want
 
 
-
-Screenshots
-	
-
-
 Individual contribution
 
 	Worked on assignment alone 
@@ -32,6 +27,10 @@ Individual contribution
 
 
 Features 
+
+	Considers request from n customers for m resources types.
+	Implements a function for requesting resource
+	Implements a function for releasing resources
 
 Tests 
 
@@ -127,10 +126,36 @@ Tests
 
 Code Example
 	
-	Example of 
+	Example of Asterick function
+	
+	void Ast(){
+        printf("Currently Available resources: %d %d %d %d\n",numOfR[0],numOfR[1],numOfR[2],numOfR[3]);
+
+        printf("Maximum resources: \n");
+        for(int i = 0; i<5; i++){
+                for(int j = 0;j<4;j++){
+                        printf("%d ",r[i][j] );
+                }
+                printf("\n");
+        }
+
+        printf("Allocated resources: \n");
+        for(int i = 0; i<5; i++){
+                for(int j = 0;j<4;j++){
+                        printf("%d ",ar[i][j] );
+                }
+                printf("\n");
+        }
+
+        printf("Needed resources: \n");
+        for(int i = 0; i<5; i++){
+                for(int j = 0;j<4;j++){
+                        printf("%d ",nr[i][j] );
+                }
+                printf("\n");
+        }
+	}
 Author
 	Anusaanth Sivakumaran 
-
-Credits
 
 Licence
